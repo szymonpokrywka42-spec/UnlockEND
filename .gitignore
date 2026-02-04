@@ -1,0 +1,32 @@
+# --- Python Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# --- Temporary Encryption Files ---
+# These are the files we created during TAR/Decryption processes
+*.tmp_tar
+*.tmp_decrypted
+
+# --- Private User Data ---
+# CRITICAL: Never upload your encrypted containers or tokens to GitHub
+*.end
+*.token
+tokens.txt
+secrets.json
+
+# --- OS Specific ---
+.DS_Store
+thumbs.db
+.directory
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.swp
