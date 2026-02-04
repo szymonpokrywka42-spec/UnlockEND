@@ -26,5 +26,7 @@ EOF
 
 # 4. Make the shortcut executable
 chmod +x ~/.local/share/applications/unlockend.desktop
+or (if this didn't work)
+You can open application from .desktop file from folder UnlockEnd
 
 echo "✅ DONE! Look for UnlockEND in your application menu."
