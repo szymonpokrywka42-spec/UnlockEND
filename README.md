@@ -1,5 +1,5 @@
 # UnlockEND
-# 🔐 UnlockEND v1.1
+# 🔐 UnlockEND v1.2 Final Version
 **A lightweight, military-grade encryption safe for your files and folders.**
 
 UnlockEND is a Python-based security tool designed for Linux users (optimized for CachyOS/Arch). It combines strong cryptography with a minimalist UI, allowing you to secure sensitive data in seconds without the overhead of complex volume management.
@@ -12,6 +12,7 @@ UnlockEND is a Python-based security tool designed for Linux users (optimized fo
 - **Stealth Mode**: Runs in the System Tray – the app stays out of your way but remains ready at any moment.
 - **Secure Shredding**: Automatically overwrites original data with random bytes before deletion to prevent recovery.
 - **Modern UI**: Clean PyQt6 interface with token masking and one-click clipboard copying.
+- **AND MORE!**
 
 
 
