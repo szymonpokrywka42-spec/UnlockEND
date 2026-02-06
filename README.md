@@ -1,5 +1,5 @@
-# UnlockEND
 # 🔐 UnlockEND v1.2 Final Version
+# 🛠 Last Security Update: February 6, 2026.
 **A lightweight, military-grade encryption safe for your files and folders.**
 
 UnlockEND is a Python-based security tool designed for Linux users (optimized for CachyOS/Arch). It combines strong cryptography with a minimalist UI, allowing you to secure sensitive data in seconds without the overhead of complex volume management.
