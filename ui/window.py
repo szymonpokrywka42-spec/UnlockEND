@@ -113,6 +113,16 @@ class MainWindow(QMainWindow):
         self.worker.finished_sig.connect(self.progress_dialog.close)
         self.worker.start()
 
+    def update_attempts_display(self, path):
+        """Pomocnicza funkcja do aktualizacji UI o stan licznika prób."""
+        if path and path.endswith('.end'):
+            attempts = self.engine.get_remaining_attempts(path)
+            self.status_label.setText(f"File Encrypted. Attempts: {attempts}/3")
+            if attempts <= 1:
+                self.status_label.setStyleSheet("color: #ff4444; font-weight: bold;")
+            else:
+                self.status_label.setStyleSheet("color: white;")
+
     def on_operation_finished(self, success, result):
         if success:
             if len(result) == 12:
@@ -121,14 +131,22 @@ class MainWindow(QMainWindow):
                 self.token_display.setText(f"TOKEN: {masked}")
                 self.copy_btn.setEnabled(True)
                 self.status_label.setText("Secured.")
+                self.status_label.setStyleSheet("color: #00ff00;")
             else:
                 self.status_label.setText("Unlocked.")
+                self.status_label.setStyleSheet("color: white;")
                 self.current_token = ""
                 self.token_display.setText("TOKEN: --------")
                 self.copy_btn.setEnabled(False)
         else:
+            # Po błędzie sprawdzamy plik ponownie, aby odświeżyć licznik prób w UI
             QMessageBox.critical(self, "Error", f"Operation failed: {result}")
-            self.status_label.setText("Error occurred.")
+            if "Remaining attempts" in result:
+                # Jeśli błąd zawiera info o próbach, UI się zaktualizuje
+                self.status_label.setText(result)
+                self.status_label.setStyleSheet("color: #ff4444; font-weight: bold;")
+            else:
+                self.status_label.setText("Error occurred.")
 
     def handle_lock(self, path=None):
         if not path:
@@ -153,6 +171,8 @@ class MainWindow(QMainWindow):
             path, _ = QFileDialog.getOpenFileName(self, "Select .end File", "", "UnlockEND (*.end)")
             
         if path:
+            # Odświeżamy info o próbach przed wpisaniem tokena
+            self.update_attempts_display(path)
             token, ok = QInputDialog.getText(self, "Token Required", "Enter Code:", QLineEdit.EchoMode.Password)
             if ok and token:
                 self.start_operation_worker('unlock', path, token)
@@ -162,6 +182,11 @@ class MainWindow(QMainWindow):
         else: event.ignore()
 
     def dropEvent(self, event):
+        # Po dropie sprawdzamy licznik prób
+        urls = event.mimeData().urls()
+        if urls:
+            path = urls[0].toLocalFile()
+            self.update_attempts_display(path)
         self.drop_handler.handle_drop(event)
 
     def closeEvent(self, event):
